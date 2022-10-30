@@ -1,4 +1,4 @@
-# Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
+ #Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
 # License: BSD 3 clause
 
 
@@ -40,46 +40,36 @@ data, label = preprocess_digits(digits)
 # housekeeping
 del digits
 
-n_cv=1
-for _ in range(n_cv):
-    x_train, y_train, x_dev, y_dev, x_test, y_test = train_dev_test_split(
-        data, label, train_frac, dev_frac
-    )
 
-    # PART: Define the model
-    # Create a classifier: a support vector classifier
-    models_of_choice={
-        "svm":svm.SVC()
-        "decision tree": tree.DecisionTreeClassifier(),
-    }
+x_train, y_train, x_dev, y_dev, x_test, y_test = train_dev_test_split(
+    data, label, train_frac, dev_frac
+)
 
-    for clf_name in models_of_choice:
-        clf-models_of_choice[clf_name]
-        actual_model_path-tune_and_save(
-            clf, x_train, y_train,x_dev,y_dev,h_pa
-        )
-    
-    # define the evaluation metric
-    metric = metrics.accuracy_score
+# PART: Define the model
+# Create a classifier: a support vector classifier
+clf = svm.SVC()
+# define the evaluation metric
+metric = metrics.accuracy_score
 
 
-    actual_model_path = tune_and_save(
-        clf, x_train, y_train, x_dev, y_dev, metric, h_param_comb, model_path=None
-    )
+actual_model_path = tune_and_save(
+    clf, x_train, y_train, x_dev, y_dev, metric, h_param_comb, model_path=None
+)
 
 
-    # 2. load the best_model
-    best_model = load(actual_model_path)
+# 2. load the best_model
+best_model = load(actual_model_path)
 
-    # PART: Get test set predictions
-    # Predict the value of the digit on the test subset
-    predicted = best_model.predict(x_test)
+# PART: Get test set predictions
+# Predict the value of the digit on the test subset
+predicted = best_model.predict(x_test)
 
-    pred_image_viz(x_test, predicted)
+pred_image_viz(x_test, predicted)
 
-    # 4. report the test set accurancy with that best model.
-    # PART: Compute evaluation metrics
-    print(
-        f"Classification report for classifier {clf}:\n"
-        f"{metrics.classification_report(y_test, predicted)}\n"
-    )
+# 4. report the test set accurancy with that best model.
+# PART: Compute evaluation metrics
+print(
+    f"Classification report for classifier {clf}:\n"
+    f"{metrics.classification_report(y_test, predicted)}\n"
+)
+print("All test cases passed")
