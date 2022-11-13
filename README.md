@@ -10,3 +10,12 @@ Run		svm(Test accuracy)		decision_tree(test accuracy)
  mean 		0.987296 					0.845382
  std 		0.005038  					0.023786 
  
+ 
+ '''
+ docker build -t exp:v1 -f docker/Dockerfile .
+ docker run -it exp:v1
+ '''
+ 
+ '''
+ export FLASK_APP=api/app.py ; flask run
+ '''
